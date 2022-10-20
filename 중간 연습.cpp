@@ -64,7 +64,7 @@ public:
 				break;
 		}
 	}
-	string toString() {
+	string toString() const { //값을 내부에서 변경하면 안되는 단순 출력 함수이므로, const를 붙여서 내부에서 const만 사용할 수 있게 해준다.
 		ostringstream temp;
 		if (_x < 10 && _y < 10) {
 			temp << "x = 0" << _x << ", y = 0" << _y << '\n';
@@ -80,7 +80,8 @@ public:
 		}
 		return temp.str();
 	}
-	static int getCounter();
+	static int getCounter(); //일반적인 get에서는 const를 붙여서 내부 변수 수정을 막는게 좋다. 하지만 정적 변수는 객체 생성 전에 이미 존재한다. 이 안에서 객체의 변수를 사용할 일이 없다.
+	//따라서 뒤에 static 아무짝에도 쓸모 없으므로, 금지된다.
 	~Point() {
 		cout << "\nPoint " << counter << " destructor.";
 		--counter;
