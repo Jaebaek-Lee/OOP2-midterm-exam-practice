@@ -184,3 +184,91 @@ int main() {
 	Tmp t{ fun() };
 }
 */
+
+//과제 3
+
+class Point {
+	friend istream& operator>>(istream& input, Point& right) {//(x, y)
+		input.ignore(255, '(');
+		input >> right._x;//얘는 하나씩만 쓴다.
+		input.ignore(255, ' ');
+		input >> right._y;
+		input.ignore();
+		return input;
+	}
+	friend ostream& operator<<(ostream& output, const Point& right) {
+		output << '(' << right._x << ", " << right._y << ")\n";
+		return output;
+	}
+	friend int operator*(const Point& left, const Point& right) {
+		return left._x * right._x + left._y * right._y;
+	}
+	friend Point& operator-=(Point& left, const Point& right) {
+		left._x -= right._x;
+		left._y -= right._y;
+		return left;
+	}
+	friend Point operator++(Point& right, int) {
+		Point temp = right;
+		++right._x;
+		++right._y;
+		return temp;
+	}
+	friend bool operator!=(const Point& left, const Point& right) {
+		return ((left._x != right._x) && (left._y != right._y));
+	}
+	friend bool operator<=(const Point& left, const Point& right) {
+		return ((left._x + left._y) <= (right._x + right._y));
+	}
+public:
+	Point() : _x{ 0 }, _y{ 0 } {}
+	bool operator==(const Point& right) {
+		return ((_x == right._x) && (_y == right._y));
+	}
+	bool operator>(const Point& right) {
+		return ((_x + _y) > (right._x + right._y));
+	}
+	Point operator+(const Point& right) const{
+		Point temp;
+		temp._x = _x + right._x;
+		temp._y = _y + right._y;
+		return temp;
+	}
+	Point& operator++() {//++p1
+		++_x; ++_y;
+		return *this;
+	}
+	Point& operator+=(const Point& right) {
+		_x += right._x;
+		_y += right._y;
+		return *this;
+	}
+	Point(const Point& right) {//=연산자였다면, 객체 전체를 바꾸는거라 friend로도 좀 위험. 멤버로 강제됨. 근데 그거 없이 그냥 복사생성자로...
+		_x = right._x;
+		_y = right._y;
+	}
+private:
+	int _x, _y;
+};
+
+int main() {
+	Point p1, p2;
+	cout << "Input 2 points: ";
+	cin >> p1 >> p2;
+
+	if (p1 == p2) cout << "p1 == p2" << endl;
+	if (p1 != p2) cout << "p1 != p2" << endl;
+	if (p1 > p2) cout << "p1 > p2" << endl;
+	if (p1 <= p2) cout << "p1 <= p2" << endl;
+
+	cout << endl;
+	cout << "p1 + p2 = " << (p1 + p2) << endl;
+	cout << "p1 * p2 = " << (p1 * p2) << endl;
+
+	cout << endl;
+	p1 -= p2++;
+	cout << "p1 -= p2++" << endl;
+	++p1 += p2;
+	cout << "++p1 += p2" << endl;
+	cout << "p1 = " << p1 << endl;
+}
