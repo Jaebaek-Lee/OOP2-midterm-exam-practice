@@ -186,7 +186,7 @@ int main() {
 */
 
 //과제 3
-
+/*
 class Point {
 	friend istream& operator>>(istream& input, Point& right) {//(x, y)
 		input.ignore(255, '(');
@@ -272,3 +272,50 @@ int main() {
 	cout << "++p1 += p2" << endl;
 	cout << "p1 = " << p1 << endl;
 }
+*/
+
+//상속
+//protacted는 관련된(상속된) 클래스에서는 자유롭게 사용 가능. but main같은 비연관 스코프에서는 사용 불가능.
+//변수 가리기
+//메인에서 파생 클래스만 호출하면, 파생클래스의 생성자 호출 - 파생클래스 내부 들어가기 전에 베이스 클래스의 "디폴트 기본 생성자"를 호출한다.
+//그런데 만약 베이스 클래스에 디폴트 기본 생성자가 없고 사용자 정의 생성자가 정의되어있다면, 에러가 발생한다.
+//해결 방법 - 멤버 이니셜라이저 리스트에서 베이스 클래스의 생성자를 직접 호출해준다.
+
+//디폴트 생성자의 종류 - 기본생성자, 복사생성자, 이동생성자, 대입연산자, 이동대입연산자
+
+//copy and paste의 단점 : 비용이 많이 발생한다. 수정이 어렵다. 악몽이 발생할 수 있다.
+
+//protected의 단점 : 코드의존도가 높아진다. 베이스 클래스에서 변수에 조건이라도 걸어뒀다면, 파생에서 그 값을 바꿨을때 문제가 생긴다.
+
+//다중 상속위 위험성 : 베이스의 함수 temp를 파생함수 a와 b가 갖는다. 그리고 a와 b를 다중상속받은 c에서temp를 호출하면 a건지 b건지 모호해짐.
+
+//public 상속 - 부모의 private 빼고는 다 그대로 받아서 사용가능. protected 상속 - private는 못건들고, 나머지 부모의 public과 protected를 protected로 사용.
+//private 상속 - 부모의 private는 여전히 접근 불가능. 부모의 public, protected를 private로 만들어 상속.
+//부모의 private를 사용할 수 있는 유일한 방법 : 부모의 함수로 접근. friend는 부모에 직접 friend를 선언하지 않은 이상, 파생에 friend 사용해도 접근 불가능. 파생의 친구는
+//파생의 친구일 뿐, 부모의 친구는 아니다.
+
+/*
+class A {
+//private
+	int a;
+	int b;
+	//A(int x, int y) { a = x; b = y; } //이자식이 있으면 파생 클래스의 생성 단계에서 디폴트 기본 생성자를 호출할 수가 없다.
+	int getA() { return a; }
+//public:
+	void setA(int temp) { a = temp; }
+};
+
+class B : public A {
+	friend void main();
+	int c;
+};
+
+void main() {
+	A a(2, 3);  //에러. 전용 생성자를 호출하려함.
+	a.getA();   //에러. 전용 멤버 함수를 호출하려함.
+	B b;
+	b.c = 3;
+	b.a = 3; //안된다.
+	b.setA(5); //마찬가지로 private면 접근 불가.
+}
+*/
