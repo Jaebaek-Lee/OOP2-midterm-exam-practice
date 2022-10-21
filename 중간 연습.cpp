@@ -47,6 +47,7 @@ int main() {
 */
 
 // 과제 2 - static 멤버변수/함수, 동적할당
+/*
 class Point {
 public:
 	Point() {
@@ -112,3 +113,74 @@ int main() {
 
 	delete[] point;
 }
+*/
+
+//얕은 복사, 깊은 복사, 이동생성자
+/*
+//클래스가 아닌 경우
+int main() {
+	const char* s1{ "jbl" };
+	const char* s2{ s1 }; //얕은 복사
+	char* s3{ new char[strlen(s1) + 1] }; //깊은 복사
+	for (int i{ 0 }; s1[i] != '\0'; ++i) {
+		s3[i] = s1[i];
+	}
+	s3[strlen(s1)] = '\0';
+}
+*/
+
+/*
+class Tmp {
+public:
+	Tmp(const char* name) : _name{ new char[strlen(name) + 1] } {//깊은 복사 수행문
+		for (int i{ 0 }; name[i] != '\0'; ++i) {
+			_name[i] = name[i];
+		}
+		_name[strlen(name)] = '\0';
+	}
+	Tmp(const Tmp& t) : Tmp{ t._name } {}//복사생성자
+	void display() const {
+		cout << _name << ' ' << static_cast<void*>(_name) << '\n';
+	}
+private:
+	char* _name;
+};
+
+int main() {
+	Tmp* ptr{ new Tmp{"jbl"} };
+	Tmp t{ *ptr };
+	ptr->display();
+	delete ptr;
+	t.display();
+}
+*/
+
+//이동생성자
+//const 객체는 const 멤버함수만. const멤함은 const 변수만
+/*
+class Tmp {
+public:
+	Tmp(const char* name) : _name{ new char[strlen(name) + 1] } {
+		for (int i{ 0 }; name[i] != '\0'; ++i) {
+			_name[i] = name[i];
+		}
+		_name[strlen(name)] = '\0';
+	}
+	Tmp(const Tmp& t) : Tmp{ t._name } { cout << "copy" << endl; }
+	Tmp(Tmp&& t) noexcept : _name{ t._name } {
+		cout << "move" << endl;
+		t._name = nullptr;
+	}
+private:
+	char* _name;
+};
+
+Tmp fun() {
+	Tmp tmp{ "jbl" };
+	return tmp;
+}
+
+int main() {
+	Tmp t{ fun() };
+}
+*/
