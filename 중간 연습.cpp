@@ -186,7 +186,7 @@ int main() {
 */
 
 //과제 3
-/*
+
 class Point {
 	friend istream& operator>>(istream& input, Point& right) {//(x, y)
 		input.ignore(255, '(');
@@ -208,10 +208,10 @@ class Point {
 		left._y -= right._y;
 		return left;
 	}
-	friend Point operator++(Point& right, int) {
-		Point temp = right;
-		++right._x;
-		++right._y;
+	friend Point operator++(Point& left, int) {//a++
+		Point temp = left;
+		++left._x;
+		++left._y;
 		return temp;
 	}
 	friend bool operator!=(const Point& left, const Point& right) {
@@ -228,7 +228,7 @@ public:
 	bool operator>(const Point& right) {
 		return ((_x + _y) > (right._x + right._y));
 	}
-	Point operator+(const Point& right) const{
+	Point operator+(const Point& right) const{ // a + b * c // a * b + c - 안됨. 얘는 friend로 따로 해줘야함. // a + b + c ㄱㄴ. cout << a + b - <<는 우측에 RV도 받을 수 있게 설계
 		Point temp;
 		temp._x = _x + right._x;
 		temp._y = _y + right._y;
@@ -271,8 +271,12 @@ int main() {
 	++p1 += p2;
 	cout << "++p1 += p2" << endl;
 	cout << "p1 = " << p1 << endl;
+	//cout << p2;
+	//p2 = (p2++)++; 임시객체는 객체는 맞지만, return되면서 메모리가 불분명해진다. 그냥 값만 가지고 오는 것. 따라서 rv가 된다. 이렇게 쓰려면 후위연산자가 rv를 받을 수 있게
+	//const Point&로 변수를 받아야하는데, 이러면 ㅋㅋ 값 올리기가 불가능해져서 에러 발생. 그럼 Point&&로 한다면? 그럼 첫 번째 연산이 불가능해질 것.
+	//cout << "\n" << p2;
 }
-*/
+
 
 //상속
 //protacted는 관련된(상속된) 클래스에서는 자유롭게 사용 가능. but main같은 비연관 스코프에서는 사용 불가능.
