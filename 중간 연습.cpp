@@ -186,7 +186,7 @@ int main() {
 */
 
 //과제 3
-
+/*
 class Point {
 	friend istream& operator>>(istream& input, Point& right) {//(x, y)
 		input.ignore(255, '(');
@@ -276,7 +276,7 @@ int main() {
 	//const Point&로 변수를 받아야하는데, 이러면 ㅋㅋ 값 올리기가 불가능해져서 에러 발생. 그럼 Point&&로 한다면? 그럼 첫 번째 연산이 불가능해질 것.
 	//cout << "\n" << p2;
 }
-
+*/
 
 //상속
 //protacted는 관련된(상속된) 클래스에서는 자유롭게 사용 가능. but main같은 비연관 스코프에서는 사용 불가능.
@@ -323,3 +323,71 @@ void main() {
 	b.setA(5); //마찬가지로 private면 접근 불가.
 }
 */
+
+//7주차 연습문제
+
+//class Divice {
+//public:
+//	Divice(string name, string manu) : model{ name }, manu{ manu } {}
+//	string toString() {
+//		ostringstream temp;
+//		temp << "Device model: " << model
+//			<< "\nDevice manufacturer: " << manu;
+//		return temp.str();
+//	}
+//private:
+//	string model;
+//	string manu;
+//};
+//
+//class Server : public Divice {
+//public:
+//	Server(string name, string manu, string os, int ps = 0) : Divice(name, manu), os{ os }, ps{ ps } {}
+//	string toString() {
+//		ostringstream temp;
+//		temp << Divice::toString()
+//			<< "\nOperating System: " << os
+//			<< "\nPower Supply: " << ps << "W\n\n";
+//		return temp.str();
+//	}
+//private:
+//	string os;
+//	int ps;
+//};
+//
+//class Laptop : public Divice {
+//public:
+//	Laptop(string name, string manu, string os, int ps = 0)
+//		: Divice(name, manu), os{ os }, ps{ ps } {}
+//	string toString() {
+//		ostringstream temp;
+//		temp << Divice::toString()
+//			<< "\nOperating Systemp: " << os
+//			<< "\nPerformance score: " << ps << "\n\n";
+//		return temp.str();
+//	}
+//	bool operator>(const Laptop& right) {
+//		return (ps > right.ps);
+//	}
+//	bool operator<(const Laptop& right) {
+//		return (ps < right.ps);
+//	}
+//private:
+//	string os;
+//	int ps;
+//};
+//
+//int main() {
+//	/*Server server("ProLiant", "HP", "RHEL", 1200);
+//	Server server2("PowerEdge", "Dell", "Ubuntu", 1400);
+//
+//	cout << server.toString() << server2.toString();*/
+//
+//	Laptop laptop("MacBook Pro", "Apple", "Mac OS", 1898);
+//	Laptop laptop2("Gram", "LG", "Windows 11", 1518);
+//
+//	cout << laptop.toString() << laptop2.toString();
+//
+//	cout << boolalpha << (laptop > laptop2) << endl;
+//	cout << boolalpha << (laptop < laptop2) << endl;
+//}
