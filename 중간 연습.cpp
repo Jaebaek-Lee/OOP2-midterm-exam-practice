@@ -285,7 +285,7 @@ int main() {
 //그런데 만약 베이스 클래스에 디폴트 기본 생성자가 없고 사용자 정의 생성자가 정의되어있다면, 에러가 발생한다.
 //해결 방법 - 멤버 이니셜라이저 리스트에서 베이스 클래스의 생성자를 직접 호출해준다.
 
-//디폴트 생성자의 종류 - 기본생성자, 복사생성자, 이동생성자, 대입연산자, 이동대입연산자
+//디폴트 생성자(신서틱)의 종류 - 기본생성자, 복사생성자, 이동생성자, 대입연산자, 이동대입연산자, 소멸자
 
 //copy and paste의 단점 : 비용이 많이 발생한다. 수정이 어렵다. 악몽이 발생할 수 있다.
 
@@ -391,3 +391,32 @@ void main() {
 //	cout << boolalpha << (laptop > laptop2) << endl;
 //	cout << boolalpha << (laptop < laptop2) << endl;
 //}
+
+//class A {
+//public:
+//	A(int a) : _a{a} {}
+//	A operator+=(int temp) {
+//		_a += temp;
+//		return *this;
+//	}
+//	int get_a() { return _a; }
+//private:
+//	int _a;
+//};
+//
+//int main() {
+//	A a{0};
+//	(a += 3) += 5;
+//	cout << a.get_a();
+//}
+
+const int& fun(int a) {
+	int temp = 3;
+	a = temp;
+	return a;
+}
+
+int main() {
+	const int temp = 3;
+	int a[temp];
+}
