@@ -46,7 +46,7 @@ int main() {
 }
 */
 
-// 과제 2 - static 멤버변수/함수, 동적할당
+// 과제 2 - static 멤버변수/함수, 동적할당 //static 변수는 클래스 외부에서 초기화하거나 const를 붙여 내부에서 초기화해야함.
 /*
 class Point {
 public:
@@ -303,13 +303,14 @@ class A {
 //private
 	int a;
 	int b;
-	//A(int x, int y) { a = x; b = y; } //이자식이 있으면 파생 클래스의 생성 단계에서 디폴트 기본 생성자를 호출할 수가 없다.
+	//A(int x, int y) { a = x; b = y; } //이자식이 있으면 파생 클래스의 생성 단계에서 기본 생성자를 호출할 수가 없다. 하지만
+	// 초기값이 int x = 0, int y = 0; 처럼 초기값을 가지면 기본생성자로 사용될 수 있다. - 꼭 디폴트여야 하는건 아니고 그냥 A () {~~} 같은 기본생성자면 됨.
 	int getA() { return a; }
 //public:
 	void setA(int temp) { a = temp; }
 };
 
-class B : public A {
+class B : public A { //A 생성 -> A 실행 -> B 생성 -> B실행 -> B소멸 -> A소멸
 	friend void main();
 	int c;
 };
@@ -410,13 +411,14 @@ void main() {
 //	cout << a.get_a();
 //}
 
-const int& fun(int a) {
-	int temp = 3;
-	a = temp;
-	return a;
-}
-
-int main() {
-	const int temp = 3;
-	int a[temp];
-}
+//배열은 리턴타입이 const인 함수는 관심없음. 그냥 프로그램 전체에서 const를 사이즈로 갖길 희망함.
+//const int& fun(int a) {
+//	int temp = 3;
+//	a = temp;
+//	return a;
+//}
+//
+//int main() {
+//	const int temp = 3;
+//	int a[temp];
+//}
